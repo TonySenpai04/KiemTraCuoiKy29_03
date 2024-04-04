@@ -28,10 +28,15 @@ app.post('/Add', (req, res) => {
 
   // Convert concatenated string to 'YYYY-MM-DD' format
   const ngay_sinh = dateString.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-  
+  let new_gioi_tinh;
+  if(gioi_tinh===1){
+    new_gioi_tinh="Nữ";
+  }else{
+    new_gioi_tinh="Nam";
+  }
   const nam_tot_nghiep=`${nam_tot_nghiep1}${nam_tot_nghiep2}${nam_tot_nghiep3}${nam_tot_nghiep4}`;
   const sql = 'INSERT INTO thong_tin_thi_sinh ( `ho_ten`, `gioi_tinh`, `ngay_sinh`, `noi_sinh`, `dan_toc`, `ton_giao`, `so_cmnd`, `noi_cap`, `ho_khau`,  `dien_thoai`, `email`, `noi_tot_nghiep`, `nam_tot_nghiep`, `ngay_cap`, `dien_thoai_phu_huynh`, `nganh_hoc`) VALUES (?, ?, ?,?,?, ?, ?,?,?, ?, ?,?,?, ?, ?,?)';
-  connection.query(sql, [ho_ten, gioi_tinh, ngay_sinh, noi_sinh, dan_toc, ton_giao, so_cmnd, noi_cap, ho_khau,  dien_thoai, email, noi_tot_nghiep, nam_tot_nghiep, ngay_cap, dien_thoai_phu_huynh, nganh_hoc], (error, results, fields) => {
+  connection.query(sql, [ho_ten, new_gioi_tinh, ngay_sinh, noi_sinh, dan_toc, ton_giao, so_cmnd, noi_cap, ho_khau,  dien_thoai, email, noi_tot_nghiep, nam_tot_nghiep, ngay_cap, dien_thoai_phu_huynh, nganh_hoc], (error, results, fields) => {
     if (error) {
      
       console.error('Error adding info:', error);
